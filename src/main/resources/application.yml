@@ -7,3 +7,6 @@ spring:
     url: jdbc:mysql://localhost:3306/super_coding_project_one?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 12341234
+
+jwt:
+  secret_key: 548BVE2TX658G7S89G7H5487A12F254F9754DHE5R2HE6W49215G6487G47S2HJ5G8HAA98
