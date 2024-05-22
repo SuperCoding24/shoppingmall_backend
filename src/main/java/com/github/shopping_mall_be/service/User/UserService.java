@@ -12,7 +12,7 @@ public interface  UserService {
     boolean matchesPassword(String rawPassword, String encodedPassword);
 
     UserDto register(NewUserDto userDto);
-    UserDto unregister(String email);
+    void unregister(String email);
 
     Token login(String email, String pw) throws Exception;
     public String logout(HttpServletRequest request, String email);

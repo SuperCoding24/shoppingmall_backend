@@ -132,14 +132,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto unregister(String email) {
+    public void unregister(String email) {
         UserDto userDto = userRepository.findByEmail(email);
         if (userDto != null) {
             userRepository.deleteByEmail(email);
             log.info("회원 탈퇴 되었습니다.");
-            return userDto;
         } else {
-            throw new IllegalArgumentException("User not found with email: " + email);
+            throw new IllegalArgumentException("해당 유저를 찾을 수 없습니다. " + email);
         }
     }
 

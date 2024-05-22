@@ -27,7 +27,7 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
-    @Column(name = "user_email") //객체 필드를 테이블의 칼럼과 매핑함
+    @Column(name = "email") //객체 필드를 테이블의 칼럼과 매핑함
     private String email;
 
     @Column(name = "user_password")

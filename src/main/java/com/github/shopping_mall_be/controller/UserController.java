@@ -29,14 +29,12 @@ public class UserController {
             if (!isValidEmail(userDto.getEmail())) {
                 result.rejectValue("email", "email.invalid", "이메일 형식에 맞게 입력하세요.");
                 log.info("이메일 형식에 맞게 입력하세요.");
-                //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getClass().getSimpleName());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 형식에 맞게 입력하세요.");
             }
 
             if (!isValidPassword(userDto.getUser_password())) {
                 result.rejectValue("password", "password.invalid", "비밀번호 형식에 맞게 입력해주세요.");
                 log.info("비밀번호 형식에 맞게 입력해주세요.");
-                //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getClass().getSimpleName());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호 형식에 맞게 입력해주세요.");
             }
 
@@ -62,8 +60,9 @@ public class UserController {
             String email = login.getEmail();
             String password = login.getUser_password();
             Token token = userService.login(email, password);
+            ResponseEntity.ok().body(ResponseToken.of(token));
 
-            return ResponseEntity.ok().body(ResponseToken.of(token));
+            return new ResponseEntity<>("로그인 되었습니다.", HttpStatus.CREATED);
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -76,22 +75,25 @@ public class UserController {
         return ResponseEntity.ok().body(res);
     }
 
-//    @DeleteMapping("/unregister/{user_email}")
-//    public ResponseEntity<String> deleteUser(@PathVariable String email) {
-//        userService.unregister(email);
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("회원 탈퇴 되었습니다.");
-//    }
+    @DeleteMapping("/unregister/{email}")
+    public ResponseEntity<String> unregister(@PathVariable String email) {
+        userService.unregister(email);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("회원 탈퇴 되었습니다.");
+    }
 
+    //이메일 유효성 검사
     private boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         return email.matches(emailRegex);
     }
 
+    //비밀번호 유효성 검사
     private boolean isValidPassword(String password) {
         String passwordRegex = "(?=.*[0-9])(?=.*[A-Za-z]).{8,20}$";
         return password.matches(passwordRegex);
     }
 
+    //핸드폰 번호 유효성 검사
     private boolean isValidPhone (String user_phone) {
         String phoneRegex = "^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})+$";
         return user_phone.matches(phoneRegex);
