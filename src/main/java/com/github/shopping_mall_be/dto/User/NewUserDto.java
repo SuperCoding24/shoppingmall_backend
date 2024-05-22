@@ -19,7 +19,10 @@ public class NewUserDto {   //유효성 검사 추가
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @Pattern(regexp="(?=.*[0-9])(?=.*[A-Za-z]).{8,20}$",
             message = "비밀번호는 영문과 숫자만 가능하며, 8자리 이상이어야 합니다.")
-    private final String password;
+    private final String user_password;
+
+    @NotBlank(message = "닉네임을 입력해주세요.")
+    private String user_nickname;
 
     @NotBlank(message = "핸드폰번호를 입력해주세요.")
     @Pattern(regexp = "^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})+$",
@@ -29,7 +32,6 @@ public class NewUserDto {   //유효성 검사 추가
     @NotBlank(message = "주소를 입력해주세요.")
     private String user_addr;
 
-    @NotBlank(message = "이미지를 등록해주세요.")
     private String user_img;
 
 }

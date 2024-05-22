@@ -78,7 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     public void saveAuthentication(UserDto userDto) {
-        String password = userDto.getPassword();
+        String password = userDto.getUser_password();
 
         UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
                 .username(userDto.getEmail())

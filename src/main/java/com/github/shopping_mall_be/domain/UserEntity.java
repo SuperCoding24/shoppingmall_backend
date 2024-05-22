@@ -31,7 +31,10 @@ public class UserEntity implements Serializable {
     private String email;
 
     @Column(name = "user_password")
-    private String password;
+    private String user_password;
+
+    @Column(name = "user_nickname", nullable = false)
+    private String user_nickname;
 
     @Column(name = "user_phone", nullable = false)
     private String user_phone;
@@ -61,7 +64,8 @@ public class UserEntity implements Serializable {
     public static UserEntity from(UserDto userDto){
         return UserEntity.builder()
                 .email(userDto.getEmail())
-                .password(userDto.getPassword())
+                .user_password(userDto.getUser_password())
+                .user_nickname(userDto.getUser_nickname())
                 .user_phone(userDto.getUser_phone())
                 .user_addr(userDto.getUser_addr())
                 .user_img(userDto.getUser_img())
@@ -75,7 +79,8 @@ public class UserEntity implements Serializable {
     public UserDto toDTO(){
         return UserDto.builder()
                 .email(this.email)
-                .password(this.password)
+                .user_password(this.user_password)
+                .user_nickname(this.user_nickname)
                 .user_phone(this.user_phone)
                 .user_addr(this.user_addr)
                 .user_img(this.user_img)

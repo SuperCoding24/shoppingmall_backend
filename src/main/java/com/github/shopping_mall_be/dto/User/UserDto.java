@@ -14,7 +14,8 @@ import lombok.Data;
 public class UserDto {
 
     private String email;
-    private String password;
+    private String user_password;
+    private String user_nickname;
     private String user_phone;
     private String user_addr;
     private String user_img;

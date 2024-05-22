@@ -52,11 +52,12 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("이미 등록된 이메일 주소입니다.");
         }
 
-        String password = encodePassword(userDto.getPassword());
+        String password = encodePassword(userDto.getUser_password());
 
         UserDto newUser = UserDto.builder()
                 .email(userDto.getEmail())
-                .password(password)
+                .user_password(password)
+                .user_nickname(userDto.getUser_nickname())
                 .user_phone(userDto.getUser_phone())
                 .user_addr(userDto.getUser_addr())
                 .user_img(userDto.getUser_img())
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
             UserDto userDto = userRepository.findByEmail(email);
 
             if(userDto != null) {
-                if(encoder.matches(pw, userDto.getPassword())) {
+                if(encoder.matches(pw, userDto.getUser_password())) {
                     Authentication authentication = new UsernamePasswordAuthenticationToken(email, pw);
                     List<GrantedAuthority> authoritiesForUser = getAuthoritiesForUser(userDto);
 

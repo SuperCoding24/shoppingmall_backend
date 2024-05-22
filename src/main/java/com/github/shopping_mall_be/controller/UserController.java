@@ -25,10 +25,6 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> join(@Validated @RequestBody NewUserDto userDto, BindingResult result) {
         try{
-//            if (result.hasErrors()) {
-//                log.info("BindingResult error : " + result.hasErrors());
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("형식에 맞게 데이터를 입력해주세요.");
-//            }
 
             if (!isValidEmail(userDto.getEmail())) {
                 result.rejectValue("email", "email.invalid", "이메일 형식에 맞게 입력하세요.");
@@ -37,7 +33,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 형식에 맞게 입력하세요.");
             }
 
-            if (!isValidPassword(userDto.getPassword())) {
+            if (!isValidPassword(userDto.getUser_password())) {
                 result.rejectValue("password", "password.invalid", "비밀번호 형식에 맞게 입력해주세요.");
                 log.info("비밀번호 형식에 맞게 입력해주세요.");
                 //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getClass().getSimpleName());
@@ -64,7 +60,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserDto login) {
         try {
             String email = login.getEmail();
-            String password = login.getPassword();
+            String password = login.getUser_password();
             Token token = userService.login(email, password);
 
             return ResponseEntity.ok().body(ResponseToken.of(token));
@@ -80,11 +76,11 @@ public class UserController {
         return ResponseEntity.ok().body(res);
     }
 
-    @DeleteMapping("/unregister/{user_email}")
-    public ResponseEntity<String> deleteUser(@PathVariable String email) {
-        userService.unregister(email);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("회원 탈퇴 되었습니다.");
-    }
+//    @DeleteMapping("/unregister/{user_email}")
+//    public ResponseEntity<String> deleteUser(@PathVariable String email) {
+//        userService.unregister(email);
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("회원 탈퇴 되었습니다.");
+//    }
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
