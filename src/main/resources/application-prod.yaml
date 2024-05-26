@@ -1,0 +1,56 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    username: root
+    password: 12341234
+    driver-class-name: org.mariadb.jdbc.Driver # MariaDB JDBC 드라이버로 변경
+    url: jdbc:mariadb://database-1.cnwww22qqvom.ap-northeast-2.rds.amazonaws.com:3306/supercoding_project2?useUnicode=true&characterEncoding=UTF-8 # jdbc:mysql -> jdbc:mariadb로 변경
+  mvc:
+    contentnegotiation:
+      favor-path-extension: false
+      favor-parameter: false
+      media-types:
+        html: text/html
+        css: text/css
+        js: application/javascript
+server:
+  port: 8080
+  jpa:
+    properties:
+#      hibernate:
+      format_sql: true
+      show_sql: true
+      dialect: org.hibernate.dialect.MariaDBDialect # MariaDB 방언으로 변경
+#       hbm2ddl:
+#          auto: create
+    database-platform: org.hibernate.dialect.MariaDBDialect # MariaDB 방언으로 변경
+
+springdoc:
+  packages-to-scan: com.github.shopping_mall_be.controller
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+#  api-docs:
+#    path: /v3/api/docs
+
+logging:
+  config: classpath:logback-spring-prod.xml
+
+upload:
+  dir: D:\ImageTest
+
+jwt:
+  secret_key: 548BVE2TX658G7S89G7H5487A12F254F9754DHE5R2HE6W49215G6487G47S2HJ5G8HAA98
+
+
+
+
+
+
+
